@@ -17,8 +17,17 @@ public class Product implements Serializable {
 	private String name;
 	private String description;
 	private float price;
+	private String logo;
+	private int category;
+	
 	private String image;
 	
+	public int getCategory() {
+		return category;
+	}
+	public void setCategory(int category) {
+		this.category = category;
+	}
 	@Column(name="id")
 	public long getId() {
 		return id;
@@ -50,12 +59,15 @@ public class Product implements Serializable {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	@Column(name="logo")
+	public String getLogo() {
+		return logo;
+	}
+	public void setImage(String logo) {
+		this.logo = logo;
+	}
 	@Column(name="image")
 	public String getImage() {
 		return image;
 	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 }

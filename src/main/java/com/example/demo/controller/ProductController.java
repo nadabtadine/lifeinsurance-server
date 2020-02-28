@@ -70,4 +70,19 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(p);
 	}
 	
+	
+	// Get product by category
+	@GetMapping(value ="/products/type/{category}", produces= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") int category){
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("responseCode", successHeaderKV.get("successCode"));
+		headers.add("responseDesc", successHeaderKV.get("responseDesc"));
+		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
+		
+		List<Product> p = productService.getAll(category);
+		
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(p);
+	}
+
+	
 }

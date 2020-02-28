@@ -25,6 +25,9 @@ public class ProductService {
 		return this.productRepository.findById(id);
 	}
 	
+	public List<Product> getAll(int category) {
+		return this.productRepository.findByCategory(category);
+	}
 	public Product save(Product p) {
 		return this.productRepository.save(p);
 	}
