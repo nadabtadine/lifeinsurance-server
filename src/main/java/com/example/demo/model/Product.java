@@ -70,4 +70,11 @@ public class Product implements Serializable {
 	public String getImage() {
 		return image;
 	}
+	
+	public Product() {super();}
+	public Product(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 }

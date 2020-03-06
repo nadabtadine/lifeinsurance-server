@@ -5,8 +5,10 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="customer")
@@ -14,21 +16,32 @@ public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@SequenceGenerator(name="customerSequence", allocationSize=1, initialValue =1, sequenceName="customer_sequence11")
 	
+	@SequenceGenerator(name="customerSequence",allocationSize=1,initialValue=1,sequenceName="customer_sequence11")
 	@Id
-	@GeneratedValue(generator="customerSequence")
+	@GeneratedValue(generator = "customerSequence")
 	private long id;
+	
 	private String name;
 	private int age;
-	private String gender;
+	private int gender;
 	private String address;
 	private String phone_number;
 	private String email;
 	private String username;
 	private String password;
+//	private int token;
+	private ArrayList<ShoppingCartItem> shoppingcart;
 	
-	
+
+	public ArrayList<ShoppingCartItem> getShoppingcart() {
+		return shoppingcart;
+	}
+
+	public void setShoppingcart(ArrayList<ShoppingCartItem> shoppingcart) {
+		this.shoppingcart = shoppingcart;
+	}
+
 	@Column(name="id")
 	public long getId() {
 		return id;
@@ -58,11 +71,11 @@ public class Customer implements Serializable {
 	
 	
 	@Column(name="gender")
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
 	
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 	
@@ -112,6 +125,18 @@ public class Customer implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+//	public Customer(long id, String username,int i) {
+//		super();
+//		this.id = id;
+//		this.username = username;
+//		this.token=i;
+//	}
+
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	
 }

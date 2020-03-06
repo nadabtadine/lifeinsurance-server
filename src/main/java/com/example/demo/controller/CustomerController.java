@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,9 +28,13 @@ import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.JWT.JwtUtil;
 import com.example.demo.model.AuthenticatedCustomer;
 import com.example.demo.model.Customer;
+import com.example.demo.model.Product;
+import com.example.demo.model.ShoppingCartItem;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.ShoppingCartService;
 
 import javassist.NotFoundException;
 
@@ -35,8 +43,13 @@ import javassist.NotFoundException;
 @RequestMapping("/api")
 public class CustomerController {
 
+	private static final String token = null;
+
 	@Autowired
 	CustomerService customerService;
+	
+	@Autowired
+	ShoppingCartService shoppingcartService;
 
 	// Set success header value
 	private static Map<String, String> successHeaderKV;
@@ -115,12 +128,16 @@ public class CustomerController {
 
 	
 	@PostMapping(value = "/login", consumes = "application/json")
-	public ResponseEntity<Customer> login(@RequestBody AuthenticatedCustomer ac, HttpServletResponse response) throws NotFoundException {
+	public ResponseEntity<Customer> login(@RequestBody Customer ac, HttpServletResponse response) throws NotFoundException {
 
+				
+//		String token= JwtUtil.generateToken(ac);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
+//		headers.add("token", token);
 		
 		CompletableFuture<Customer> cf = customerService.exists(ac);
 		Customer customer = null;
@@ -156,5 +173,37 @@ public class CustomerController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(insertCustomer);
 	}
+	
+	// Get shopping cart
+		@GetMapping(value ="/shoppingcart/{cid}", produces= MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<ArrayList<ShoppingCartItem>> getShoppingCart(@PathVariable("cid") Long cid){
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("responseCode", successHeaderKV.get("successCode"));
+			headers.add("responseDesc", successHeaderKV.get("responseDesc"));
+			headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
+			
+			ArrayList<ShoppingCartItem> sc= new ArrayList<ShoppingCartItem>();
+			
+			sc = shoppingcartService.getShoppingCart(cid);
+	
+			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(sc);
+		}
+		
+		// add product to shopping cart
+		@PostMapping(value = "/shoppingcart/{cid}")
+		public ResponseEntity<ShoppingCartItem> addProduct(@RequestBody Product p,@PathVariable("cid") Long cid) throws InterruptedException {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("responseCode", successHeaderKV.get("successCode"));
+			headers.add("responseDesc", successHeaderKV.get("successDesc"));
+			headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
+		
+			ShoppingCartItem sci= new ShoppingCartItem(cid, p.getId());
+			shoppingcartService.addProduct(sci);
+			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(sci);
+			
+		}
+
+
+	
 	
 }
