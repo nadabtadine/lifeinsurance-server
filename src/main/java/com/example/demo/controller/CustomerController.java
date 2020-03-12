@@ -48,8 +48,6 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
-	@Autowired
-	ShoppingCartService shoppingcartService;
 
 	// Set success header value
 	private static Map<String, String> successHeaderKV;
@@ -155,12 +153,13 @@ public class CustomerController {
 
 	// Insert new customer
 	@PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> insertCustomer(@RequestBody Customer customer) throws InterruptedException {
+	public ResponseEntity<String> insertCustomer(@RequestBody Customer customer) throws InterruptedException, NotFoundException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 		
+		if(customerService.signedUp(customer) == null) {
 		CompletableFuture<String> cf = customerService.insertCustomer(customer);
 		
 		String insertCustomer = null;
@@ -172,38 +171,11 @@ public class CustomerController {
 			e.printStackTrace();
 		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(insertCustomer);
+		}else {
+			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(null);
+		}
 	}
 	
-	// Get shopping cart
-		@GetMapping(value ="/shoppingcart/{cid}", produces= MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<ArrayList<ShoppingCartItem>> getShoppingCart(@PathVariable("cid") Long cid){
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("responseCode", successHeaderKV.get("successCode"));
-			headers.add("responseDesc", successHeaderKV.get("responseDesc"));
-			headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
-			
-			ArrayList<ShoppingCartItem> sc= new ArrayList<ShoppingCartItem>();
-			
-			sc = shoppingcartService.getShoppingCart(cid);
-	
-			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(sc);
-		}
-		
-		// add product to shopping cart
-		@PostMapping(value = "/shoppingcart/{cid}")
-		public ResponseEntity<ShoppingCartItem> addProduct(@RequestBody Product p,@PathVariable("cid") Long cid) throws InterruptedException {
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("responseCode", successHeaderKV.get("successCode"));
-			headers.add("responseDesc", successHeaderKV.get("successDesc"));
-			headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
-		
-			ShoppingCartItem sci= new ShoppingCartItem(cid, p.getId());
-			shoppingcartService.addProduct(sci);
-			return ResponseEntity.status(HttpStatus.OK).headers(headers).body(sci);
-			
-		}
 
-
-	
 	
 }

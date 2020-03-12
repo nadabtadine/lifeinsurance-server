@@ -63,6 +63,10 @@ public class CustomerService {
 		return customerRepository.findOneByUsernameAndPassword(ac.getUsername(), ac.getPassword());
 	}
 
-	
+	public CompletableFuture<Customer> signedUp(Customer ac) throws NotFoundException {
+		log.info("checking if customer exists in db");
+		return customerRepository.findOneByEmail(ac.getEmail());
+	}
+
 
 }

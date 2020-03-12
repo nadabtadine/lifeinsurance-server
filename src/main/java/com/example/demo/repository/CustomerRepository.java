@@ -39,5 +39,7 @@ public interface CustomerRepository extends JpaRepository <Customer, Long>{
 	public CompletableFuture<Customer> findOneByUsernameAndPassword(String username, String password);
 	
 
-	
+	//check if user is already signed up
+		public CompletableFuture<Customer> findOneByEmail(String email);
+		
 }
