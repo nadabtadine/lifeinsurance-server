@@ -28,7 +28,6 @@ import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.demo.JWT.JwtUtil;
 import com.example.demo.model.AuthenticatedCustomer;
 import com.example.demo.model.Customer;
 import com.example.demo.model.Product;
@@ -43,7 +42,6 @@ import javassist.NotFoundException;
 @RequestMapping("/api")
 public class CustomerController {
 
-	private static final String token = null;
 
 	@Autowired
 	CustomerService customerService;
@@ -81,7 +79,7 @@ public class CustomerController {
 	
 	
 	// Get customers by name
-	@GetMapping(value = "/customers/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/customerss/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Customer>> getCustomersByName(@PathVariable String name) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
@@ -128,14 +126,10 @@ public class CustomerController {
 	@PostMapping(value = "/login", consumes = "application/json")
 	public ResponseEntity<Customer> login(@RequestBody Customer ac, HttpServletResponse response) throws NotFoundException {
 
-				
-//		String token= JwtUtil.generateToken(ac);
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
-//		headers.add("token", token);
 		
 		CompletableFuture<Customer> cf = customerService.exists(ac);
 		Customer customer = null;

@@ -47,7 +47,7 @@ public class ShoppingCartController {
 	
 	// add product to shopping cart
 	@PostMapping(value = "/shoppingcart/{cid}")
-	public ResponseEntity<ShoppingCartItem> addProduct(@RequestBody Product p,@PathVariable("cid") Long cid) throws NotFoundException {
+	public ResponseEntity<ShoppingCartItem> addProduct(@RequestBody Product p, @PathVariable("cid") Long cid) throws NotFoundException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));

@@ -56,4 +56,6 @@ public interface ShoppingCartRepository extends JpaRepository <ShoppingCartItem,
 	public void addProduct(Long pid, Long cid);
 	
 	
+	
+	
 }

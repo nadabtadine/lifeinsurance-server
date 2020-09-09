@@ -9,7 +9,6 @@ public class simulation2 {
 	private String address;
 	private boolean loans;
 	private String empstatus;
-	
 	public simulation2(int age, String marial, int nchildren, float income, String address, boolean loans,
 			String empstatus) {
 		super();
@@ -78,5 +77,7 @@ public class simulation2 {
 	public void setEmpstatus(String empstatus) {
 		this.empstatus = empstatus;
 	}
+
+
 
 }

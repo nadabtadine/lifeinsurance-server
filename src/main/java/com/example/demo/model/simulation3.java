@@ -87,5 +87,6 @@ public class simulation3 {
 	public void setIncome(float income) {
 		this.income = income;
 	}
+
 	
 }

@@ -14,13 +14,21 @@ import javax.persistence.Table;
 @Table(name="shoppingcart")
 public class ShoppingCartItem implements Serializable  {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	private long cid;
 	private long pid;
 	

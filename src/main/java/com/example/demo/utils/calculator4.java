@@ -14,6 +14,8 @@ public class calculator4 {
 		if(s4.getCar()==3) {result*=1.2;}
 		if(s4.getCar()==4) {result*=1.3;}
 		if(s4.getCar()>4) {result*=1.4;}
-		return (int)result;
+
+			return (int)result;
+			 
 	}
 }

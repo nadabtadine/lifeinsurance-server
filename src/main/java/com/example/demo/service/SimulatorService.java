@@ -15,22 +15,22 @@ import com.example.demo.utils.calculator4;
 public class SimulatorService {
 
 	public double getResult1(simulation1 s1) {
-		double initialprice=420,result = 0;
+		double initialprice=300,result = 0; 
 		result=calculator1.calculate(initialprice, s1);
 		return result;
 	}
 	public double getResult2(simulation2 s2) {
-		double initialprice=700,result = 0;
+		double initialprice=400,result = 0;
 		result=calculator2.calculate(initialprice, s2);
 		return result;
 	}
 	public double getResult3(simulation3 s3) {
-		double initialprice=340,result = 0;
+		double initialprice=200,result = 0;
 		result=calculator3.calculate(initialprice, s3);
 		return result;
 	}
 	public double getResult4(simulation4 s4) {
-		double initialprice=250,result = 0;
+		double initialprice=100,result = 0;
 		result=calculator4.calculate(initialprice, s4);
 		return result;
 	}

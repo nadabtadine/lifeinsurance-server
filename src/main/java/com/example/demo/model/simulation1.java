@@ -11,6 +11,7 @@ public class simulation1 {
 	private boolean smoker;
 	private boolean operation;
 	private boolean fclass;
+
 	
 	public simulation1(boolean cancer, String ctype, int cstage, boolean chemo, boolean medication, boolean disease,
 			boolean smoker, boolean operation, boolean fclass) {
@@ -79,5 +80,7 @@ public class simulation1 {
 	public void setFclass(boolean fclass) {
 		this.fclass = fclass;
 	}
+
+	
 	
 }

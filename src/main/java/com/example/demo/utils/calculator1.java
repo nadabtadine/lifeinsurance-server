@@ -6,25 +6,28 @@ public class calculator1 {
 
 	public static double calculate(double startingprice, simulation1 s1) {
 		double result=startingprice;
+
+		
 		if(s1.isCancer()==true) {
-			result*=1.5;
+			result*=1.2;
 		}
 		if(s1.getCstage()==3 | s1.getCstage()==4) {
-			 result*=1.2;
+			 result*=1.1;
 		 }
 		 if(s1.isDisease()==true) {
 			 result*=1.1;
 		 }
 		 if(s1.isMedication()==true) {
-			 result*=1.2;
+			 result*=1.1;
 		 }
 		 if(s1.isOperation()==true) {
-			 result*=1.3;
+			 result*=1.2;
 		 }
 		 if(s1.isFclass()==true) {
-			 result*=1.4;
+			 result*=1.3;
 		 }
+		
 		return (int)result;
+		 
 	}
-	
 }

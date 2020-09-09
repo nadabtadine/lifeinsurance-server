@@ -1,12 +1,15 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.example.demo.model.AuthenticatedCustomer;
@@ -28,18 +31,25 @@ public interface CustomerRepository extends JpaRepository <Customer, Long>{
 	@Async	
 	@Query(value="select * from customer where name = ?1", nativeQuery=true)
 	public CompletableFuture<Collection<Customer>> getCustomerByName(String name);
+	
+
+
+	public CompletableFuture<Customer> findOneById(Long name);
+	
 		
 	
 	// Get customer by id
-	@Async
-	@Query(value="select * from customer where id = ?1", nativeQuery=true)
-	public CompletableFuture<Customer> getCustomerById(Long id);
+	//@Async
+	//@Query(value="select * from customer where id = ?1", nativeQuery=true)
+	//public CompletableFuture<Customer> getCustomerById(Long id);
 	
 	// get customer's credentials
 	public CompletableFuture<Customer> findOneByUsernameAndPassword(String username, String password);
 	
 
 	//check if user is already signed up
-		public CompletableFuture<Customer> findOneByEmail(String email);
+	public CompletableFuture<Customer> findOneByEmail(String email);
+
+    //void insert(Customer customer);
 		
 }

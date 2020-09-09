@@ -1,23 +1,27 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="customer")
 public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	
-	
-	@SequenceGenerator(name="customerSequence",allocationSize=1,initialValue=1,sequenceName="customer_sequence11")
+	@SequenceGenerator(name="customerSequence",allocationSize=1,initialValue=2,sequenceName="customer_sequence11")
 	@Id
 	@GeneratedValue(generator = "customerSequence")
 	private long id;
@@ -136,6 +140,19 @@ public class Customer implements Serializable {
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
+
+	//public Customer(String name, Integer age, Integer gender, String address, String phone, String email,
+	//		String username, String password) {
+	//	this.name=name;
+	//	this.age=age;
+	//	this.gender=gender;
+	//	this.address=address;
+	//	this.phone_number=phone;
+	//	this.email=email;
+	//	this.username=username;
+	//	this.password=password;
+		// TODO Auto-generated constructor stub
+	//}
 
 
 	

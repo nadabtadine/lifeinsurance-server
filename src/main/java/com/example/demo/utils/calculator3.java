@@ -13,6 +13,9 @@ public class calculator3 {
 		if(s3.getMajor()=="Medicine") {result*=1.4;}
 		if(s3.getMajor()=="Engineering") {result*=1.2;}
 		if(s3.isVolunteer() || s3.isClubm()){result*=0.8;}
-		return (int)result;
+		
+
+			return (int)result;
+			 
 	}
 }
